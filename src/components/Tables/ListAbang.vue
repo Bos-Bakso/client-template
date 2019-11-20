@@ -1,8 +1,8 @@
 <template>
   <div>
     <md-table v-model="abangs" :table-header-color="tableHeaderColor">
-      <md-table-row slot="md-table-row" slot-scope="{ item, index }">
-        <md-table-cell md-label="Sales"
+      <md-table-row slot="md-table-row" slot-scope="{ item }">
+        <md-table-cell md-label=""
           ><img
             :src="item.image"
             alt
@@ -13,21 +13,23 @@
           />
           {{ item.username }}</md-table-cell
         >
-        <md-table-cell md-label="Position"
-          ><div>
-            <img
-              src="https://i.stack.imgur.com/twRl3.png"
-              style="width:20px"
-              alt=""
-            /></div
+        <md-table-cell md-label=""
+          ><div class="detail" @click="detail(item.latitude, item.longitude)">
+            <img src="@/assets/maps.png" style="width:20px" alt="" /></div
         ></md-table-cell>
-        <md-table-cell md-label="Messenger">X</md-table-cell>
+        <md-table-cell md-label="">
+          <a :href="'https://m.me/' + item.facebook" target="_blank">
+            <div>
+              <img src="@/assets/msg.png" style="width:20px" alt="" /></div></a
+        ></md-table-cell>
       </md-table-row>
     </md-table>
   </div>
 </template>
 
 <script>
+import { latLng } from "leaflet";
+
 export default {
   name: "ordered-table",
   props: ["tableHeaderColor"],
@@ -35,6 +37,17 @@ export default {
     abangs() {
       return this.$store.state.tukangs;
     }
+  },
+  methods: {
+    detail(lat, lng) {
+      let loc = latLng(lat, lng);
+      this.$emit("detail", loc);
+    }
   }
 };
 </script>
+<style>
+.detail {
+  cursor: pointer;
+}
+</style>

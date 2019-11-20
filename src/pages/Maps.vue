@@ -3,7 +3,7 @@
     <div class="md-layout">
       <!-- 2 -->
       <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50"
+        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-70"
       >
         <md-card>
           <md-card-header data-background-color="orange">
@@ -18,7 +18,7 @@
       </div>
 
       <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50"
+        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-30"
       >
         <md-card>
           <md-card-header data-background-color="blue">
@@ -27,7 +27,7 @@
           </md-card-header>
           <md-card-content>
             <!-- List Abang goes here -->
-            <list-abang table-header-color="blue"></list-abang>
+            <list-abang table-header-color="blue" @detail="detail"></list-abang>
           </md-card-content>
         </md-card>
       </div>
@@ -43,7 +43,6 @@ import {
   OrderedTable
 } from "@/components";
 
-import { latLng } from "leaflet";
 import Maps from "@/components/Maps";
 import { TriggerRank } from "@/api/firebase";
 
@@ -70,8 +69,7 @@ export default {
     };
   },
   methods: {
-    detail(lat, lng) {
-      let loc = latLng(lat, lng);
+    detail(loc) {
       this.$refs.maps.innerClick(loc);
     },
     addAbang() {
