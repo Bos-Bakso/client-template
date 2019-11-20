@@ -25,7 +25,7 @@
 
           <template slot="content">
             <p class="category">Unsolved Service</p>
-            <h3 class="title">75</h3>
+            <h3 class="title">{{ unsolved.length }}</h3>
           </template>
         </stats-card>
       </div>
@@ -40,7 +40,7 @@
 
           <template slot="content">
             <p class="category">Sales Agents</p>
-            <h3 class="title">45</h3>
+            <h3 class="title">{{ this.$store.state.tukangs.length }}</h3>
           </template>
         </stats-card>
       </div>
@@ -54,9 +54,7 @@
 
           <template slot="content">
             <p class="category">Service Agents</p>
-            <h3 class="title">
-              45
-            </h3>
+            <h3 class="title">{{ this.$store.state.abangService.length }}</h3>
           </template>
         </stats-card>
       </div>
@@ -102,7 +100,7 @@ import {
   OrderedTable
 } from "@/components";
 
-import { TriggerRank } from "@/api/firebase";
+import { TriggerRank, TriggerNotif } from "@/api/firebase";
 
 import Chart from "../components/Chart";
 
@@ -120,7 +118,8 @@ export default {
       totalIncome: 0,
       listabangs: [],
       lisTransactions: [],
-      topRankAbang: []
+      topRankAbang: [],
+      unsolved: 0
     };
   },
   methods: {
@@ -149,6 +148,9 @@ export default {
   },
   created() {
     window.scrollTo(0, 0);
+    this.$store.dispatch("fetchTukangs");
+    this.$store.dispatch("fetchAbangService");
+
     this.$store
       .dispatch("getTotalAbang")
       .then(data => {
@@ -165,6 +167,12 @@ export default {
     TriggerRank.onSnapshot(querySnapshot => {
       console.log(querySnapshot);
       this.$store.dispatch("fetchRank");
+    });
+
+    TriggerNotif.onSnapshot(querySnapshot => {
+      this.$store.dispatch("fetchService").then(data => {
+        this.unsolved = data.filter(el => !el.solve);
+      });
     });
   },
   computed: {

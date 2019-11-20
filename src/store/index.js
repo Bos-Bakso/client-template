@@ -150,7 +150,7 @@ export default new Vuex.Store({
         })
           .then(({ data }) => {
             context.commit("SET_SERVICE", data.service);
-            resolve();
+            resolve(data.service);
           })
           .catch(err => {
             reject(err);
@@ -173,6 +173,7 @@ export default new Vuex.Store({
         });
     },
     addAbangService(context, payload) {
+      console.log("add service");
       return new Promise(function(resolve, reject) {
         axios({
           method: "POST",

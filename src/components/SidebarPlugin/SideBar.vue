@@ -6,18 +6,13 @@
     :style="sidebarStyle"
   >
     <div class="logo">
-      <a href="#" class="simple-text logo-mini">
+      <div class="simple-text logo-mini">
         <div class="logo-img">
           <img :src="imgLogo" alt />
         </div>
-      </a>
+      </div>
 
-      <a
-        href="https://www.creative-tim.com/product/vue-material-dashboard"
-        target="_blank"
-        class="simple-text logo-normal"
-        >{{ title }}</a
-      >
+      <div class="simple-text logo-normal">{{ title }}</div>
     </div>
     <div class="sidebar-wrapper">
       <slot name="content"></slot>
@@ -49,11 +44,11 @@ export default {
     },
     backgroundImage: {
       type: String,
-      default: require("@/assets/img/sidebar-1.jpg")
+      default: require("@/assets/img/bakso.jpeg")
     },
     imgLogo: {
       type: String,
-      default: require("@/assets/logo.png")
+      default: require("@/assets/img/logo.png")
     },
     activeColor: {
       type: String,
@@ -91,5 +86,9 @@ export default {
   .nav-mobile-menu {
     display: none;
   }
+}
+
+.sidebar .logo .simple-text {
+  text-transform: none !important;
 }
 </style>

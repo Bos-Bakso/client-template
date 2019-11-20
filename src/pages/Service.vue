@@ -7,12 +7,103 @@
       >
         <md-card>
           <md-card-header data-background-color="blue">
-            <h4 class="title">Service Agents</h4>
-            <p class="category">List of All Service Agents</p>
+             <div
+              style="display: flex; justify-content: space-between; width: 100%"
+            >
+              <div style="display: flex; flex-direction: column">
+                <h4 v-if="showForm === false" class="title">Service Agents</h4>
+                <h4 v-else class="title">Add New Agent</h4>
+
+                <p v-if="showForm === false" class="category">
+                  List of All Service Agents
+                </p>
+                <p v-else class="category">Fill out the form</p>
+              </div>
+
+              <div>
+                <!-- <transition name="fade"> -->
+                <div v-if="showForm">
+                  <md-button class="md-warning" @click="cancelAdd"
+                    >Cancel</md-button
+                  >
+                </div>
+                <!-- </transition> -->
+                <!-- <transition name="fade"> -->
+                <div v-if="showForm === false">
+                  <md-button class="md-warning" @click="goAddAbang"
+                    >Add +</md-button
+                  >
+                </div>
+                <!-- </transition> -->
+              </div>
+              <div></div>
+            </div>
           </md-card-header>
           <md-card-content>
             <!-- List Abang goes here -->
-            <list-tukang-service
+            <div v-if="showForm">
+
+              
+              <form @submit.prevent="newAbang" class="myForm">
+                <md-field>
+                  <md-input
+                    class="form-control"
+                    v-model="username"
+                    type="text"
+                    placeholder="Username"
+                  ></md-input>
+                </md-field>
+                <md-field>
+                  <md-input
+                    class="form-control"
+                    v-model="password"
+                    type="password"
+                    placeholder="Password"
+                  ></md-input>
+                </md-field>
+
+                <md-field>
+                  <md-input
+                    class="form-control"
+                    v-model="facebook"
+                    type="text"
+                    placeholder="Facebook"
+                  ></md-input>
+                </md-field>
+                <form
+                  id="img-form"
+                  action="/profile"
+                  method="post"
+                  enctype="multipart/form-data"
+                >
+                  <md-field>
+                    <input
+                      type="file"
+                      ref="image"
+                      accept="image/*"
+                      v-on:change="handleimage"
+                      required
+                    />
+                  </md-field>
+                </form>
+                <md-button
+                  v-if="loading === false"
+                  @click.prevent="newAbang"
+                  type="submit"
+                  class="md-info"
+                  >Submit</md-button
+                >
+                <md-button v-else type="submit" @click.prevent class="md-info">
+                  <i
+                    class="fas fa-spinner fa-pulse"
+                    style="font-size: 1.5rem;"
+                  ></i>
+                </md-button>
+              </form>
+            
+
+            </div>
+            <list-tukang-service v-else
               table-header-color="blue"
             ></list-tukang-service>
           </md-card-content>
@@ -143,6 +234,7 @@ export default {
       username: "",
       password: "",
       facebook: "",
+      loading: false,
       //   abangService : this.$store.state.abangService
       icon: {
         "Police Issue": require(`../../assets/service/police.png`),
@@ -167,7 +259,7 @@ export default {
     fetchAbangService() {
       this.$store.dispatch("fetchAbangService");
     },
-    addService() {
+    goAddAbang() {
       this.showForm = true;
     },
     cancelAdd() {
