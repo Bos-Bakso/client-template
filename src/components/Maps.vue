@@ -23,8 +23,9 @@
               <img
                 src="https://cdn2.iconfinder.com/data/icons/social-icons-33/128/Facebook_Messenger-512.png"
                 alt
-                style="width:20px"
+                style="width:30px"
               />
+              <span style="float:right"> </span>
             </a>
           </div>
         </l-popup>

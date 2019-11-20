@@ -12,7 +12,7 @@
         <md-icon>location_on</md-icon>
         <p>Maps</p>
       </sidebar-link>
-      <sidebar-link to="/admin/user">
+      <sidebar-link to="/admin/service">
         <md-icon>build</md-icon>
         <p>Service</p>
       </sidebar-link>

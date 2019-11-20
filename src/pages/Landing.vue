@@ -1,46 +1,52 @@
 <template>
   <div class="wrapper">
-    <div class="left">
-      <img
-        src="../../assets/bowl.png"
-        alt=""
-        style="width: 200px; height: 80px"
-      />
+    <div class="rectangle-1">
+      <h4
+        style="font-size: 3rem; color: white; margin-top: -50px; margin-bottom: 70px;"
+      >
+        Welcome To.
+      </h4>
+      <div class="logoContainer" style="display: flex; align-items: center">
+        <img src="../../assets/bowl.png" alt id="logoImg" />
+        <h4 style="font-size: 5rem; color: white; margin-left: 20px">
+          BosBaso
+        </h4>
+      </div>
     </div>
-    <div class="right">
-      <div style="width: 20%;" v-if="Login">
-        <p class="label">Login</p>
-        <form @submit.prevent="login">
-          <input
+
+    <!-- form login -->
+    <div class="formContainer">
+      <form @submit.prevent="login" class="myForm">
+        <label for="" style="font-size: 30px;">Login to continue.</label>
+        <md-field>
+          <md-input
             class="form-control"
             v-model="username"
             type="text"
             placeholder="Username"
-          />
-          <input
+          ></md-input>
+        </md-field>
+        <md-field>
+          <md-input
             class="form-control"
             v-model="password"
             type="password"
             placeholder="Password"
-          />
-          <button
-            v-if="loading === false"
-            @click.prevent="login"
-            type="submit"
-            class="btn btn-primary"
-          >
-            Sign in
-          </button>
-          <button
-            v-else
-            type="submit"
-            @click.prevent=""
-            class="btn btn-primary"
-          >
-            <i class="fas fa-spinner fa-pulse" style="font-size: 1.5rem;"></i>
-          </button>
-        </form>
-      </div>
+          ></md-input>
+        </md-field>
+
+        <md-button
+          v-if="loading === false"
+          @click.prevent="login"
+          type="submit"
+          class="md-warning"
+          style="background-color: rgba(255, 176, 21, 0.84); border: none"
+          >Login</md-button
+        >
+        <md-button v-else type="submit" @click.prevent class="md-warning">
+          <i class="fas fa-spinner fa-pulse" style="font-size: 1.5rem;"></i>
+        </md-button>
+      </form>
     </div>
   </div>
 </template>
@@ -62,7 +68,6 @@ export default {
       this.$store
         .dispatch("login", { username: this.username, password: this.password })
         .then(user => {
-          console.log(user);
           this.$store.commit("SET_BOS_IMAGE", user.image);
           this.loading = false;
           this.$router.push("/admin/dashboard");
@@ -70,9 +75,12 @@ export default {
     }
   },
   created() {
-    // this.socket.on("test", data => {
-    //   console.log(data, 'socket')
-    // })
+    this.username = "";
+    this.password = "";
+  },
+  destroyed() {
+    this.username = "";
+    this.password = "";
   }
 };
 </script>
@@ -81,7 +89,6 @@ export default {
 * {
   font-size: 200rem;
 }
-
 /* button{
         padding: 0.6rem 1rem;
         font-size: 1rem;
@@ -115,11 +122,10 @@ img {
 }
 .wrapper {
   display: flex;
-  padding-top: 20vh;
-  flex-direction: column;
+  width: 100%;
+  height: 100vh;
   /* grid-template-columns: 1fr 1fr; */
 }
-
 .right {
   margin-top: 40px;
   padding: 0 3rem;
@@ -127,12 +133,38 @@ img {
 form {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 40%;
+  height: 100%;
+  justify-content: center;
 }
 input,
 button {
   margin-bottom: 2vh;
   /* padding: 1vh 0.5vw; */
   font-size: 1.5rem;
+}
+#logoImg {
+  width: 100px;
+  height: auto;
+}
+.rectangle-1 {
+  height: 100vh;
+  width: 50%;
+  background: rgba(255, 176, 21, 0.84);
+  mix-blend-mode: normal;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 0 50px 50px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.formContainer {
+  width: 50%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>
