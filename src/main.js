@@ -52,6 +52,10 @@ const router = new VueRouter({
 
 Vue.prototype.$Chartist = Chartist;
 
+// vue-toasted
+import Toasted from "vue-toasted";
+Vue.use(Toasted);
+
 Vue.use(VueRouter);
 Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);

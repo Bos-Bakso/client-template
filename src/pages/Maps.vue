@@ -187,20 +187,31 @@ export default {
       formData.append("image", this.image);
       formData.append("role", "baso");
 
-      this.$store.dispatch("addAbang", formData).then(_ => {
-        this.loading = false;
-        this.username = "";
-        this.password = "";
-        this.facebook = "";
-        this.fetchTukangs();
-        this.showForm = false;
-        this.$toasted.show("New Abang Added", {
-          theme: "outline",
-          position: "top-right",
-          duration: 4000,
-          type: "success"
+      this.$store
+        .dispatch("addAbang", formData)
+        .then(_ => {
+          this.loading = false;
+          this.username = "";
+          this.password = "";
+          this.facebook = "";
+          this.fetchTukangs();
+          this.showForm = false;
+          this.$toasted.show("new sales agent succesfully created", {
+            theme: "bubble",
+            position: "bottom-right",
+            duration: 4000,
+            type: "success"
+          });
+        })
+        .catch(error => {
+          this.loading = false;
+          this.$toasted.show("Invalid input, create service agent failed", {
+            theme: "bubble",
+            position: "bottom-right",
+            duration: 4000,
+            type: "error"
+          });
         });
-      });
     },
     fetchTukangs() {
       this.$store.dispatch("fetchTukangs");

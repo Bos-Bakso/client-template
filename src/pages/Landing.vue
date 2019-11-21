@@ -71,6 +71,17 @@ export default {
           this.$store.commit("SET_BOS_IMAGE", user.image);
           this.loading = false;
           this.$router.push("/admin/dashboard");
+        })
+        .catch(error => {
+          this.username = "";
+          this.password = "";
+          this.loading = false;
+          this.$toasted.show("Invalid username and password, login failed", {
+            theme: "bubble",
+            position: "bottom-right",
+            duration: 4000,
+            type: "error"
+          });
         });
     }
   },

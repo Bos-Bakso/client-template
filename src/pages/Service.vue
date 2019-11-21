@@ -288,20 +288,20 @@ export default {
           this.password = "";
           this.facebook = "";
           this.showForm = false;
-          this.$toasted.show("New Abang Added", {
-            theme: "outline",
-            position: "top-right",
-            duration: 3000,
+          this.$toasted.show("new service agent succesfully created", {
+            theme: "bubble",
+            position: "bottom-right",
+            duration: 4000,
             type: "success"
           });
         })
         .catch(err => {
           this.loading = false;
-          this.$toasted.show("Add Abang Fail", {
-            theme: "outline",
-            position: "top-right",
-            duration: 3000,
-            type: "fail"
+          this.$toasted.show("Invalid input, create service agent failed", {
+            theme: "bubble",
+            position: "bottom-right",
+            duration: 4000,
+            type: "error"
           });
         });
     }

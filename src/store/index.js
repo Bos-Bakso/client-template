@@ -61,7 +61,9 @@ export default new Vuex.Store({
             }
             resolve(user);
           })
-          .catch(console.log);
+          .catch(error => {
+            reject(error);
+          });
       });
     },
     getTotalAbang(context, payload) {
@@ -109,7 +111,9 @@ export default new Vuex.Store({
           .then(_ => {
             resolve();
           })
-          .catch(console.log);
+          .catch(error => {
+            reject(error);
+          });
       });
     },
     fetchTukangs(context, payload) {
